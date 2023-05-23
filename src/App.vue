@@ -1,18 +1,42 @@
-<script setup></script>
+<script>
+// give each todo a unique id
+let id = 0
 
-<template><h1>Hello</h1></template>
+export default {
+  data() {
+    return {
+      newTodo: '',
+      todos: [
+        { id: id++, text: 'Learn HTML' },
+        { id: id++, text: 'Learn JavaScript' },
+        { id: id++, text: 'Learn Vue' },
+      ],
+    }
+  },
+  methods: {
+    addTodo() {
+      this.todos.push({ id: id++, text: this.newTodo })
+      this.newTodo = ''
+    },
+    removeTodo(todo) {
+      console.log('removing todo', todo)
+      this.todos = this.todos.filter((t) => t.id !== todo.id)
+    },
+  },
+}
+</script>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
-</style>
+<template>
+  <main>
+    <form @submit.prevent="addTodo">
+      <input v-model="newTodo" data-cy="add" />
+      <button>Add Todo</button>
+    </form>
+    <ul class="todos">
+      <li v-for="todo in todos" :key="todo.id">
+        {{ todo.text }}
+        <button data-cy="remove" @click="removeTodo(todo)">X</button>
+      </li>
+    </ul>
+  </main>
+</template>
