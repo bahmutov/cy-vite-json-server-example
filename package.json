@@ -1,7 +1,8 @@
 {
   "name": "cy-vite-json-server-example",
   "version": "1.0.0",
-  "description": "",
+  "description": "Playing with Vite and Vue and Cypress",
+  "private": true,
   "main": "index.js",
   "type": "module",
   "scripts": {
